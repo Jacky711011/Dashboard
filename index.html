@@ -192,7 +192,7 @@
                         const response = await fetch('market_status.json');
                         const data = await response.json();
                         marketData.value = data;
-                        print("🎯 戰情室前端數據已同步！");
+                        console.log("🎯 戰情室前端數據已同步！");
                     } catch (error) {
                         console.error("❌ 讀取 JSON 數據失敗，請確認檔案路徑：", error);
                     }
