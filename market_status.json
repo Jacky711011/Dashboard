@@ -1,9 +1,21 @@
 {
-    "last_update": "2026-05-18 15:30:00",
+    "last_update": "2026-05-18 01:43:07",
     "market_index": {
-        "taiex": { "price": 22150.50, "change": 150.20, "percent": 0.68 },
-        "tx": { "price": 22135.00, "change": 165.00, "percent": 0.75 },
-        "nasdaq": { "price": 18230.15, "change": -15.40, "percent": -0.08 }
+        "taiex": {
+            "price": 41172.36,
+            "change": -579.39,
+            "percent": -1.39
+        },
+        "tx": {
+            "price": 0.0,
+            "change": 0.0,
+            "percent": 0.0
+        },
+        "nasdaq": {
+            "price": 26225.14,
+            "change": -410.08,
+            "percent": -1.54
+        }
     },
     "chips": {
         "foreign_futures_net": 2500,
@@ -15,7 +27,17 @@
         }
     },
     "strategy_picks": [
-        { "code": "2330", "name": "台積電", "win_rate_5w": 85.2, "ma20_slope": 1.25 },
-        { "code": "2454", "name": "聯發科", "win_rate_5w": 72.1, "ma20_slope": 0.85 }
+        {
+            "code": "2330",
+            "name": "台積電",
+            "win_rate_5w": 85.2,
+            "ma20_slope": 1.25
+        },
+        {
+            "code": "2454",
+            "name": "聯發科",
+            "win_rate_5w": 72.1,
+            "ma20_slope": 0.85
+        }
     ]
 }
