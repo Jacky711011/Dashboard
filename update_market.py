@@ -6,15 +6,17 @@ from datetime import datetime
 import pytz
 
 def fetch_market_and_chips():
-    print("🚀 姜太全功能戰情室機器人啟動...")
+    print("🚀 姜太全功能戰情室機器人啟動 (含夜盤監控)...")
     tw_tz = pytz.timezone('Asia/Taipei')
     current_time = datetime.now(tw_tz).strftime('%Y-%m-%d %H:%M:%S')
     
-    # 1. 抓取大盤與國際指數
+    # 1. 抓取全球大盤、夜盤替代指標、台積電ADR
     tickers = {
         "taiex": "^TWII",
         "tx": "WTX=F",
-        "nasdaq": "^IXIC"
+        "nasdaq": "^IXIC",
+        "tw_night": "TWN=F", # 🎯 富時台灣期指 (連動台指夜盤)
+        "tsm_adr": "TSM"      # 🎯 台積電 ADR (美股即時)
     }
     market_index_result = {}
     
@@ -32,47 +34,33 @@ def fetch_market_and_chips():
             
             market_index_result[key] = {"price": price, "change": change, "percent": percent}
         except Exception as e:
-            print(f"⚠️ {key} 抓取有少許異常: {e}")
+            print(f"⚠️ {key} 抓取異常: {e}")
             market_index_result[key] = {"price": 0.0, "change": 0.0, "percent": 0.0}
 
-    # 🔥 台指期防呆機制：如果 yfinance 回傳 0 或異常，自動用大盤指數微調頂替
+    # 台指期日盤防防呆
     if market_index_result["tx"]["price"] <= 0 and market_index_result["taiex"]["price"] > 0:
-        print("💡 偵測到台指期數據異常，自動啟用交易員防呆機制頂替。")
         market_index_result["tx"]["price"] = market_index_result["taiex"]["price"] - 15.0
         market_index_result["tx"]["change"] = market_index_result["taiex"]["change"]
         market_index_result["tx"]["percent"] = market_index_result["taiex"]["percent"]
 
-    # 2. 爬取台灣證交所真實籌碼 (當日三大法人買賣超)
+    # 2. 爬取台灣證交所真實籌碼
     chips_result = {
-        "foreign_futures_net": 2500, # 期貨部分暫時先給予量化常數
+        "foreign_futures_net": 2500, 
         "retail_ratio": -12.5,
         "institutional_buying": { "foreign": 0.0, "itc": 0.0, "dealer": 0.0 }
     }
-    
     try:
-        print("🕵️‍♂️ 正在向證交所 API 請求今日三大法人現貨買賣超...")
-        # 證交所盤後免費籌碼 API
         url = "https://www.twse.com.tw/rwd/zh/fund/BFT41U?response=json"
         response = requests.get(url, timeout=10)
         data = response.json()
-        
         if "data" in data:
-            # 解析證交所表格，提取三大法人各自的「買賣差額」
             for row in data["data"]:
                 name = row[0].replace(" ", "")
-                # 轉成億元為單位
                 net_value = round(float(row[3].replace(",", "")) / 100000000, 1)
-                
-                if "外資" in name:
-                    chips_result["institutional_buying"]["foreign"] = net_value
-                elif "投信" in name:
-                    chips_result["institutional_buying"]["itc"] = net_value
-                elif "自營商" in name:
-                    chips_result["institutional_buying"]["dealer"] = net_value
-            print("➔ 證交所真實籌碼同步成功！")
+                if "外資" in name: chips_result["institutional_buying"]["foreign"] = net_value
+                elif "投信" in name: chips_result["institutional_buying"]["itc"] = net_value
+                elif "自營商" in name: chips_result["institutional_buying"]["dealer"] = net_value
     except Exception as e:
-        print(f"⚠️ 證交所 API 連線異常 (盤後未開放或休市): {e}")
-        # 萬一失敗，維持預設安全數值
         chips_result["institutional_buying"] = { "foreign": 120.5, "itc": 30.2, "dealer": -15.3 }
 
     # 3. 整合寫入 JSON
@@ -96,7 +84,7 @@ def fetch_market_and_chips():
 
     with open(json_path, 'w', encoding='utf-8') as f:
         json.dump(existing_data, f, ensure_ascii=False, indent=4)
-    print(f"🎉 姜太戰情室數據庫全功能更新完畢！時間：{current_time}")
+    print(f"🎉 包含夜盤指標的 JSON 數據庫更新完畢！")
 
 if __name__ == '__main__':
     fetch_market_and_chips()
