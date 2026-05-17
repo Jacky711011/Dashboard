@@ -33,58 +33,73 @@
 
         <main class="flex-1 p-6 flex flex-col gap-6 max-w-7xl mx-auto w-full">
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
                 
                 <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow shadow-black/50">
                     <p class="text-xs font-medium text-slate-400">加權指數 (TAIEX)</p>
-                    <p class="text-2xl font-black mt-1" :class="marketData.market_index.taiex.change >= 0 ? 'text-red-500' : 'text-green-500'">
+                    <p class="text-xl font-black mt-1" :class="marketData.market_index.taiex.change >= 0 ? 'text-red-500' : 'text-green-500'">
                         {{ marketData.market_index.taiex.price.toLocaleString() }}
                     </p>
                     <p class="text-xs mt-1" :class="marketData.market_index.taiex.change >= 0 ? 'text-red-400' : 'text-green-400'">
-                        {{ marketData.market_index.taiex.change >= 0 ? '▲' : '▼' }} 
-                        {{ Math.abs(marketData.market_index.taiex.change) }} ({{ marketData.market_index.taiex.percent }}%)
+                        {{ marketData.market_index.taiex.change >= 0 ? '▲' : '▼' }} {{ Math.abs(marketData.market_index.taiex.change) }} ({{ marketData.market_index.taiex.percent }}%)
                     </p>
                 </div>
 
                 <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow shadow-black/50">
                     <p class="text-xs font-medium text-slate-400">台指期近月 (TX)</p>
-                    <p class="text-2xl font-black mt-1" :class="marketData.market_index.tx.change >= 0 ? 'text-red-500' : 'text-green-500'">
+                    <p class="text-xl font-black mt-1" :class="marketData.market_index.tx.change >= 0 ? 'text-red-500' : 'text-green-500'">
                         {{ marketData.market_index.tx.price.toLocaleString() }}
                     </p>
                     <p class="text-xs mt-1" :class="marketData.market_index.tx.change >= 0 ? 'text-red-400' : 'text-green-400'">
-                        {{ marketData.market_index.tx.change >= 0 ? '▲' : '▼' }} 
-                        {{ Math.abs(marketData.market_index.tx.change) }} ({{ marketData.market_index.tx.percent }}%)
+                        {{ marketData.market_index.tx.change >= 0 ? '▲' : '▼' }} {{ Math.abs(marketData.market_index.tx.change) }} ({{ marketData.market_index.tx.percent }}%)
+                    </p>
+                </div>
+
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow shadow-black/50 ring-1 ring-orange-500/30">
+                    <p class="text-xs font-medium text-orange-400 flex items-center gap-1">🌙 台指夜盤估計 (FTSE)</p>
+                    <p class="text-xl font-black mt-1" :class="marketData.market_index.tw_night.change >= 0 ? 'text-red-500' : 'text-green-500'">
+                        {{ marketData.market_index.tw_night.price.toLocaleString() }}
+                    </p>
+                    <p class="text-xs mt-1" :class="marketData.market_index.tw_night.change >= 0 ? 'text-red-400' : 'text-green-400'">
+                        {{ marketData.market_index.tw_night.change >= 0 ? '▲' : '▼' }} {{ Math.abs(marketData.market_index.tw_night.change) }} ({{ marketData.market_index.tw_night.percent }}%)
+                    </p>
+                </div>
+
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow shadow-black/50 ring-1 ring-blue-500/30">
+                    <p class="text-xs font-medium text-blue-400 flex items-center gap-1">🗽 台積電 ADR (TSM)</p>
+                    <p class="text-xl font-black mt-1" :class="marketData.market_index.tsm_adr.change >= 0 ? 'text-red-500' : 'text-green-400'">
+                        ${{ marketData.market_index.tsm_adr.price.toLocaleString() }}
+                    </p>
+                    <p class="text-xs mt-1" :class="marketData.market_index.tsm_adr.change >= 0 ? 'text-red-400' : 'text-green-400'">
+                        {{ marketData.market_index.tsm_adr.change >= 0 ? '▲' : '▼' }} {{ Math.abs(marketData.market_index.tsm_adr.change) }} ({{ marketData.market_index.tsm_adr.percent }}%)
                     </p>
                 </div>
 
                 <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow shadow-black/50">
                     <p class="text-xs font-medium text-slate-400">期現貨價差</p>
-                    <p class="text-2xl font-black mt-1" :class="priceSpread >= 0 ? 'text-red-500' : 'text-emerald-400'">
+                    <p class="text-xl font-black mt-1" :class="priceSpread >= 0 ? 'text-red-500' : 'text-emerald-400'">
                         {{ priceSpread >= 0 ? '+' : '' }}{{ priceSpread.toFixed(2) }}
                     </p>
                     <p class="text-xs mt-1" :class="priceSpread >= 0 ? 'text-red-400' : 'text-emerald-400'">
-                        當前呈 [ {{ priceSpread >= 0 ? '正價差' : '逆價差' }} ] 狀態
+                        [ {{ priceSpread >= 0 ? '正價差' : '逆價差' }} ]
                     </p>
                 </div>
 
                 <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow shadow-black/50">
                     <p class="text-xs font-medium text-slate-400">那斯達克 (Nasdaq)</p>
-                    <p class="text-2xl font-black mt-1" :class="marketData.market_index.nasdaq.change >= 0 ? 'text-red-500' : 'text-green-400'">
+                    <p class="text-xl font-black mt-1" :class="marketData.market_index.nasdaq.change >= 0 ? 'text-red-500' : 'text-green-400'">
                         {{ marketData.market_index.nasdaq.price.toLocaleString() }}
                     </p>
                     <p class="text-xs mt-1" :class="marketData.market_index.nasdaq.change >= 0 ? 'text-red-400' : 'text-green-400'">
-                        {{ marketData.market_index.nasdaq.change >= 0 ? '▲' : '▼' }} 
-                        {{ Math.abs(marketData.market_index.nasdaq.change) }} ({{ marketData.market_index.nasdaq.percent }}%)
+                        {{ marketData.market_index.nasdaq.change >= 0 ? '▲' : '▼' }} {{ Math.abs(marketData.market_index.nasdaq.change) }} ({{ marketData.market_index.nasdaq.percent }}%)
                     </p>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                
                 <div class="lg:col-span-2 bg-slate-900 p-6 rounded-xl border border-slate-800 shadow flex flex-col min-h-[350px]">
                     <h3 class="text-base font-bold text-orange-400 mb-4 flex items-center gap-2">🕵️‍♂️ 1. 三大法人籌碼流向監控</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
-                        
                         <div class="flex flex-col justify-center gap-3 bg-slate-950/50 p-4 rounded-lg border border-slate-800">
                             <div class="flex justify-between items-center text-sm">
                                 <span class="text-slate-400">外資期貨淨未平倉：</span>
@@ -100,7 +115,6 @@
                             </div>
                             <div class="border-t border-slate-800 my-1"></div>
                             <div class="text-xs font-semibold text-slate-500 mb-1">今日三大法人現貨買賣超：</div>
-                            
                             <div class="flex justify-between text-xs">
                                 <span class="text-slate-400">外資現貨：</span>
                                 <span :class="marketData.chips.institutional_buying.foreign >= 0 ? 'text-red-400' : 'text-green-400'" class="font-mono font-bold">
@@ -120,7 +134,6 @@
                                 </span>
                             </div>
                         </div>
-
                         <div class="flex items-center justify-center text-slate-600 text-xs border border-dashed border-slate-800 rounded-lg p-4">
                             📊 籌碼動態 Chart.js 圖表預留區
                         </div>
@@ -156,22 +169,21 @@
                     </div>
                 </div>
             </div>
-            
         </main>
     </div>
 
     <script>
         const { createApp, ref, computed, onMounted } = Vue;
-
         createApp({
             setup() {
-                // 1. 初始化資料結構（與你的 JSON 格式完美一致）
                 const marketData = ref({
                     last_update: "載入中...",
                     market_index: {
                         taiex: { price: 0, change: 0, percent: 0 },
                         tx: { price: 0, change: 0, percent: 0 },
-                        nasdaq: { price: 0, change: 0, percent: 0 }
+                        nasdaq: { price: 0, change: 0, percent: 0 },
+                        tw_night: { price: 0, change: 0, percent: 0 },
+                        tsm_adr: { price: 0, change: 0, percent: 0 }
                     },
                     chips: {
                         foreign_futures_net: 0,
@@ -181,33 +193,27 @@
                     strategy_picks: []
                 });
 
-                // 2. 自動計算「期現貨價差」 (台指期價格 - 加權指數價格)
                 const priceSpread = computed(() => {
                     return marketData.value.market_index.tx.price - marketData.value.market_index.taiex.price;
                 });
 
-                // 3. 非同步撈取同目錄下的 JSON 檔案
                 const fetchMarketStatus = async () => {
                     try {
                         const response = await fetch('market_status.json');
                         const data = await response.json();
                         marketData.value = data;
-                        console.log("🎯 戰情室前端數據已同步！");
+                        console.log("🎯 戰情室數據（含夜盤）已同步！");
                     } catch (error) {
-                        console.error("❌ 讀取 JSON 數據失敗，請確認檔案路徑：", error);
+                        console.error("❌ 讀取 JSON 數據失敗：", error);
                     }
                 };
 
-                // 4. 網頁開啟時立刻載入，並設定每 30 秒在背景重抓一次
                 onMounted(() => {
                     fetchMarketStatus();
                     setInterval(fetchMarketStatus, 30000); 
                 });
 
-                return {
-                    marketData,
-                    priceSpread
-                };
+                return { marketData, priceSpread };
             }
         }).mount('#app');
     </script>
