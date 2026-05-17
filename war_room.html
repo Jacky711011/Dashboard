@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>姜太的台股戰情室 - 量化交易儀表板</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans">
+
+    <div id="app" class="flex flex-col min-h-screen flex-1">
+        <header class="bg-slate-900 p-4 border-b border-slate-800 shadow-lg flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <span class="flex h-3 w-3 relative">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                </span>
+                <h1 class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-500 select-none">
+                    📊 姜太的台股量化戰情室
+                </h1>
+                <span class="text-xs bg-slate-800 px-2 py-0.5 rounded text-slate-400 border border-slate-700">自動更新中</span>
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-3">
+                <a href="https://www.facebook.com/profile.php?id=61578355122271" target="_blank" class="text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg transition shadow-md shadow-blue-900/30">📘 姜太 FB</a>
+                <a href="https://www.youtube.com/@Caption-b4u" target="_blank" class="text-xs font-bold bg-red-600 hover:bg-red-500 text-white px-3 py-1.5 rounded-lg transition shadow-md shadow-red-900/30">📺 觀看 YT</a>
+                <a href="https://shopee.tw/_bear_wolf_" target="_blank" class="text-xs font-bold bg-orange-600 hover:bg-orange-500 text-white px-3 py-1.5 rounded-lg transition shadow-md shadow-orange-900/30">🛍️ 蝦皮賣場</a>
+            </div>
+        </header>
+
+        <main class="flex-1 p-6 flex flex-col gap-6 max-w-7xl mx-auto w-full">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow shadow-black/50">
+                    <p class="text-xs font-medium text-slate-400">加權指數 (TAIEX)</p>
+                    <p class="text-2xl font-black text-red-500 mt-1">22,150.50</p>
+                    <p class="text-xs text-red-400 mt-1">▲ +150.20 (+0.68%)</p>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow shadow-black/50">
+                    <p class="text-xs font-medium text-slate-400">台指期近月 (TX)</p>
+                    <p class="text-2xl font-black text-red-500 mt-1">22,135.00</p>
+                    <p class="text-xs text-red-400 mt-1">▲ +165.00 (+0.75%)</p>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow shadow-black/50">
+                    <p class="text-xs font-medium text-slate-400">期現貨價差</p>
+                    <p class="text-2xl font-black text-emerald-400 mt-1">-15.50</p>
+                    <p class="text-xs text-emerald-400 mt-1">當前呈 [ 逆價差 ] 狀態</p>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow shadow-black/50">
+                    <p class="text-xs font-medium text-slate-400">那斯達克 (Nasdaq)</p>
+                    <p class="text-2xl font-black text-green-400 mt-1">18,230.15</p>
+                    <p class="text-xs text-green-400 mt-1">▼ -15.40 (-0.08%)</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 bg-slate-900 p-6 rounded-xl border border-slate-800 shadow flex flex-col min-h-[350px]">
+                    <h3 class="text-base font-bold text-orange-400 mb-4 flex items-center gap-2">🕵️‍♂️ 1. 三大法人籌碼流向監控</h3>
+                    <div class="flex-1 flex items-center justify-center text-slate-500 text-sm border border-dashed border-slate-800 rounded">
+                        圖表加載中...（待串接籌碼圖表）
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 shadow flex flex-col max-h-[350px]">
+                    <h3 class="text-base font-bold text-orange-400 mb-4 flex items-center gap-2">🎯 2. 5週強勢股策略監控</h3>
+                    <div class="flex-1 overflow-y-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="text-slate-400 border-b border-slate-800">
+                                <tr>
+                                    <th class="py-2">代碼</th>
+                                    <th class="py-2">名稱</th>
+                                    <th class="py-2 text-right">5週勝率</th>
+                                    <th class="py-2 text-right">20MA斜率</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-800 text-slate-300">
+                                <tr class="hover:bg-slate-800/40 transition">
+                                    <td class="py-2.5 font-mono text-orange-400">2330</td>
+                                    <td class="py-2.5">台積電</td>
+                                    <td class="py-2.5 text-right font-semibold text-red-400">85.2%</td>
+                                    <td class="py-2.5 text-right text-red-400">+1.25</td>
+                                </tr>
+                                <tr class="hover:bg-slate-800/40 transition">
+                                    <td class="py-2.5 font-mono text-orange-400">2454</td>
+                                    <td class="py-2.5">聯發科</td>
+                                    <td class="py-2.5 text-right font-semibold text-red-400">72.1%</td>
+                                    <td class="py-2.5 text-right text-red-400">+0.85</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+        createApp({
+            setup() {
+                return {};
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
