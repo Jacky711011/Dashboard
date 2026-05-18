@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-05-18 20:15:19",
+    "last_update": "2026-05-18 20:27:35",
     "market_index": {
         "taiex": {
             "price": 40891.82,
@@ -28,12 +28,12 @@
         }
     },
     "chips": {
-        "foreign_futures_net": 2500,
-        "retail_ratio": -12.5,
+        "foreign_futures_net": -25600,
+        "retail_ratio": 12.5,
         "institutional_buying": {
-            "foreign": 120.5,
-            "itc": 30.2,
-            "dealer": -15.3
+            "foreign": -120.5,
+            "itc": 45.2,
+            "dealer": -12.3
         }
     },
     "strategy_picks": [
