@@ -1,15 +1,15 @@
 {
-    "last_update": "2026-05-18 12:01:38",
+    "last_update": "2026-05-18 18:48:30",
     "market_index": {
         "taiex": {
-            "price": 40765.29,
-            "change": -407.07,
-            "percent": -0.99
+            "price": 40891.82,
+            "change": -280.54,
+            "percent": -0.68
         },
         "tx": {
-            "price": 40750.29,
-            "change": -407.07,
-            "percent": -0.99
+            "price": 40876.82,
+            "change": -280.54,
+            "percent": -0.68
         },
         "nasdaq": {
             "price": 26225.14,
