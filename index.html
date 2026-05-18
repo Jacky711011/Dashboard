@@ -7,16 +7,14 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <style>
-        /* 升級版霓虹燈配色與動畫 */
         @keyframes pulse-neon { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         .neon-text-orange { color: #f97316; text-shadow: 0 0 10px rgba(249, 115, 22, 0.6); }
         .neon-text-green { color: #4ade80; text-shadow: 0 0 10px rgba(74, 222, 128, 0.6); }
         .neon-text-red { color: #ef4444; text-shadow: 0 0 10px rgba(239, 68, 68, 0.6); }
         .animate-pulse-slow { animation: pulse-neon 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
-        .bg-card-dark { bg: #0a0e17; border: 1px solid #1e293b; shadow: 0 10px 15px -3px rgba(0,0,0,0.5); }
-        /* 用於 Buy 行 */
-        .row-buy-green { background-color: rgba(74, 222, 128, 0.05); }
-        .row-buy-green:hover { background-color: rgba(74, 222, 128, 0.1); }
+        .bg-card-dark { background-color: #0a0e17; border: 1px solid #1e293b; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5); }
+        .row-buy-green { background-color: rgba(74, 222, 128, 0.02); }
+        .row-buy-green:hover { background-color: rgba(74, 222, 128, 0.08); }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans">
@@ -45,7 +43,6 @@
         <main class="flex-1 p-6 flex flex-col gap-6 max-w-7xl mx-auto w-full">
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-                
                 <div class="bg-card-dark p-4 rounded-xl shadow shadow-black/50">
                     <p class="text-xs font-medium text-slate-400">加權指數 (TAIEX)</p>
                     <p class="text-xl font-black mt-1" :class="marketData.market_index.taiex.change >= 0 ? 'text-red-500' : 'text-green-500'">
@@ -55,7 +52,6 @@
                         {{ marketData.market_index.taiex.change >= 0 ? '▲' : '▼' }} {{ Math.abs(marketData.market_index.taiex.change) }} ({{ marketData.market_index.taiex.percent }}%)
                     </p>
                 </div>
-
                 <div class="bg-card-dark p-4 rounded-xl shadow shadow-black/50">
                     <p class="text-xs font-medium text-slate-400">台指期近月 (TX)</p>
                     <p class="text-xl font-black mt-1" :class="marketData.market_index.tx.change >= 0 ? 'text-red-500' : 'text-green-500'">
@@ -65,7 +61,6 @@
                         {{ marketData.market_index.tx.change >= 0 ? '▲' : '▼' }} {{ Math.abs(marketData.market_index.tx.change) }} ({{ marketData.market_index.tx.percent }}%)
                     </p>
                 </div>
-
                 <div class="bg-card-dark p-4 rounded-xl shadow shadow-black/50">
                     <p class="text-xs font-medium text-blue-400 flex items-center gap-1">🗽 台積電 ADR (TSM)</p>
                     <p class="text-xl font-black mt-1" :class="marketData.market_index.tsm_adr.change >= 0 ? 'text-red-500' : 'text-green-400'">
@@ -75,27 +70,24 @@
                         {{ marketData.market_index.tsm_adr.change >= 0 ? '▲' : '▼' }} {{ Math.abs(marketData.market_index.tsm_adr.change) }} ({{ marketData.market_index.tsm_adr.percent }}%)
                     </p>
                 </div>
-
                 <div class="bg-card-dark p-4 rounded-xl shadow shadow-black/50">
                     <p class="text-xs font-medium text-slate-400">費半指數 (SOX)</p>
-                    <p class="text-xl font-black mt-1" :class="marketData.market_index.tsm_adr.change >= 0 ? 'text-red-500' : 'text-green-500'">
+                    <p class="text-xl font-black mt-1" :class="marketData.market_index.sox.change >= 0 ? 'text-red-500' : 'text-green-500'">
                         {{ marketData.market_index.sox.price.toLocaleString() }}
                     </p>
-                    <p class="text-xs mt-1" :class="marketData.market_index.tsm_adr.change >= 0 ? 'text-red-400' : 'text-green-400'">
-                        {{ marketData.market_index.tsm_adr.change >= 0 ? '▲' : '▼' }} {{ Math.abs(marketData.market_index.tsm_adr.change) }} ({{ marketData.market_index.tsm_adr.percent }}%)
+                    <p class="text-xs mt-1" :class="marketData.market_index.sox.change >= 0 ? 'text-red-400' : 'text-green-400'">
+                        {{ marketData.market_index.sox.change >= 0 ? '▲' : '▼' }} {{ Math.abs(marketData.market_index.sox.change) }} ({{ marketData.market_index.sox.percent }}%)
                     </p>
                 </div>
-
                 <div class="bg-card-dark p-4 rounded-xl shadow shadow-black/50">
                     <p class="text-xs font-medium text-slate-400">道瓊指數 (DJI)</p>
-                    <p class="text-xl font-black mt-1" :class="marketData.market_index.nasdaq.change >= 0 ? 'text-red-500' : 'text-green-500'">
+                    <p class="text-xl font-black mt-1" :class="marketData.market_index.dji.change >= 0 ? 'text-red-500' : 'text-green-500'">
                         {{ marketData.market_index.dji.price.toLocaleString() }}
                     </p>
-                    <p class="text-xs mt-1" :class="marketData.market_index.nasdaq.change >= 0 ? 'text-red-400' : 'text-green-400'">
-                        {{ marketData.market_index.nasdaq.change >= 0 ? '▲' : '▼' }} {{ Math.abs(marketData.market_index.nasdaq.change) }} ({{ marketData.market_index.nasdaq.percent }}%)
+                    <p class="text-xs mt-1" :class="marketData.market_index.dji.change >= 0 ? 'text-red-400' : 'text-green-400'">
+                        {{ marketData.market_index.dji.change >= 0 ? '▲' : '▼' }} {{ Math.abs(marketData.market_index.dji.change) }} ({{ marketData.market_index.dji.percent }}%)
                     </p>
                 </div>
-
                 <div class="bg-card-dark p-4 rounded-xl shadow shadow-black/50">
                     <p class="text-xs font-medium text-slate-400">那斯達克 (Nasdaq)</p>
                     <p class="text-xl font-black mt-1" :class="marketData.market_index.nasdaq.change >= 0 ? 'text-red-500' : 'text-green-500'">
@@ -111,10 +103,10 @@
                 <div class="flex items-center justify-between mb-5 pb-3 border-b border-orange-500/20">
                     <h2 class="text-xl font-extrabold flex items-center gap-3">
                         <span class="text-orange-400 neon-text-orange">🎯 策略持倉監控核心</span>
-                        <span class="text-xs font-bold text-green-400">(基本上都做多，持倉中)</span>
+                        <span class="text-xs font-bold text-green-400">(Webhook 實時對接)</span>
                     </h2>
                     <span class="text-xs font-mono bg-slate-800 text-slate-400 px-3 py-1 rounded">
-                        目前策略執行數: {{ marketData.strategy_positions.length }}
+                        當前持倉策略數: {{ marketData.strategy_positions ? marketData.strategy_positions.length : 0 }}
                     </span>
                 </div>
 
@@ -137,104 +129,75 @@
                                         <div class="text-xs text-slate-500 font-mono">{{ pos.code }}</div>
                                     </td>
                                     <td class="py-3 neon-text-green">
-                                        <div><span class="text-xs text-slate-500">點數:</span> {{ pos.buy_price.toLocaleString() }}</div>
+                                        <div><span class="text-xs text-slate-500">點數:</span> {{ pos.buy_price }}</div>
                                         <div class="text-xs text-slate-400 font-mono">{{ pos.buy_time }}</div>
-                                        <div class="text-sm font-bold" :class="pos.pnl_percent >= 0 ? 'text-red-400' : 'text-green-400'">
-                                            未結盈虧: {{ pos.pnl_percent.toFixed(2) }}%
+                                        <div class="text-xs font-bold mt-1" :class="pos.pnl_percent >= 0 ? 'text-red-400' : 'text-green-400'">
+                                            未結盈虧: {{ pos.pnl_percent >= 0 ? '+' : '' }}{{ pos.pnl_percent }}%
                                         </div>
                                     </td>
                                     <td class="py-3 neon-text-orange font-bold">
-                                        <div>{{ pos.tp_price.toLocaleString() }}</div>
-                                        <div class="text-xs text-slate-400">利潤距: +{{ (pos.tp_price - pos.buy_price).toFixed(2) }}點</div>
+                                        <div>{{ pos.tp_price }}</div>
+                                        <div class="text-xs text-slate-500">目標距: +{{ (pos.tp_price - pos.buy_price).toFixed(1) }} 點</div>
                                     </td>
                                     <td class="py-3 neon-text-red font-bold">
-                                        <div>{{ pos.sl_price.toLocaleString() }}</div>
-                                        <div class="text-xs text-slate-400">虧損距: -{{ (pos.buy_price - pos.sl_price).toFixed(2) }}點</div>
+                                        <div>{{ pos.sl_price }}</div>
+                                        <div class="text-xs text-slate-500">防守距: -{{ (pos.buy_price - pos.sl_price).toFixed(1) }} 點</div>
                                     </td>
-                                    <td class="py-3 text-slate-500">
-                                        <div>{{ pos.is_closed ? pos.close_price.toLocaleString() : '等待平倉' }}</div>
-                                        <div class="text-xs text-slate-600">{{ pos.is_closed ? pos.close_time : '--:--:--' }}</div>
+                                    <td class="py-3" :class="pos.is_closed ? 'text-slate-300' : 'text-slate-600'">
+                                        <div class="font-bold">{{ pos.is_closed ? pos.close_price : '持倉續抱中' }}</div>
+                                        <div class="text-xs font-mono">{{ pos.is_closed ? pos.close_time : '--:--:--' }}</div>
                                     </td>
                                 </tr>
                                 <tr class="bg-black/40"><td colspan="5" class="h-1 py-0"></td></tr>
                             </template>
                         
-                            <tr v-if="marketData.strategy_positions.length === 0">
-                                <td colspan="5" class="text-center py-16 text-slate-600 bg-slate-900/50 rounded-b-xl border border-slate-800 border-t-0">
-                                    暫無策略持倉數據，等待 TradingView 訊號對接...
+                            <tr v-if="!marketData.strategy_positions || marketData.strategy_positions.length === 0">
+                                <td colspan="5" class="text-center py-20 text-slate-500 bg-slate-900/10 rounded-b-xl">
+                                    📭 暫無策略持倉單。等待 TradingView 訊號觸發，或執行測試腳本發射訊號。
                                 </td>
-                            }
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            
         </main>
     </div>
 
     <script>
-        const { createApp, ref, computed, onMounted } = Vue;
-
+        const { createApp, ref, onMounted } = Vue;
         createApp({
             setup() {
-                // 1. 初始化資料結構（已新增策略持倉預留陣列）
                 const marketData = ref({
-                    last_update: "載入中...",
+                    last_update: "同步中...",
                     market_index: {
                         taiex: { price: 0, change: 0, percent: 0 },
-                        tx: { price: 0, change: 0, percent: 0 }, // TAIEX 同步防呆
+                        tx: { price: 0, change: 0, percent: 0 },
                         nasdaq: { price: 0, change: 0, percent: 0 },
                         tsm_adr: { price: 0, change: 0, percent: 0 },
-                        sox: { price: 0, change: 0, percent: 0 }, // SOX 預留
-                        dji: { price: 0, change: 0, percent: 0 } // DJI 預留
+                        sox: { price: 0, change: 0, percent: 0 },
+                        dji: { price: 0, change: 0, percent: 0 }
                     },
-                    chips: {
-                        foreign_futures_net: 0,
-                        retail_ratio: 0,
-                        institutional_buying: { foreign: 0, itc: 0, dealer: 0 }
-                    },
-                    // 🎯 TradingView 持倉策略預留陣列 (基本上都做多)
                     strategy_positions: [] 
                 });
 
-                // 2. 自動計算「期現貨價差」 (因防呆均為 TAIEX 同步，價差目前應近乎 0)
-                const priceSpread = computed(() => {
-                    return marketData.value.market_index.tx.price - marketData.value.market_index.taiex.price;
-                });
-
-                // 3. 非同步撈取 JSON 檔案 (對應到你的 GitHub 倉庫 `market_status.json`)
                 const fetchMarketStatus = async () => {
                     try {
-                        const response = await fetch('market_status.json');
+                        // 🎯 核心防快取優化：在 URL 後面強制帶上時間戳記，徹底粉碎瀏覽器隱形快取！
+                        const response = await fetch('market_status.json?t=' + new Date().getTime());
                         const data = await response.json();
                         marketData.value = data;
-                        
-                        // 【測試用途】若 JSON 檔案內還沒有策略數據，我們預留一些測試訊號供確認版面
-                        if (!data.strategy_positions || data.strategy_positions.length === 0) {
-                            marketData.value.strategy_positions = [
-                                { code: "TXF1! (台指近月)", name: "策略名稱1 (台指多頭趨勢)", buy_price: 22150, buy_time: "2026-05-18 09:15:00", pnl_percent: 1.25, tp_price: 22450, sl_price: 21950, is_closed: false },
-                                { code: "TSM_ADR (台積 ADR)", name: "策略名稱2 (台積美股波段)", buy_price: 404.35, buy_time: "2026-05-18 21:35:00", pnl_percent: -0.52, tp_price: 435.00, sl_price: 395.00, is_closed: false },
-                                { code: "2330.TW (台積電)", name: "策略名稱3 (台股現貨策略)", buy_price: 1150, buy_time: "2026-05-18 13:00:00", pnl_percent: 2.11, tp_price: 1250, sl_price: 1100, is_closed: false },
-                                { code: "IXIC (那斯達克)", name: "策略名稱4 (美股科技做多)", buy_price: 26225, buy_time: "2026-05-18 22:15:00", pnl_percent: -1.15, tp_price: 27000, sl_price: 26000, is_closed: false },
-                            ];
-                        }
-                        
-                        console.log("🎯 姜太戰情室策略看板數據已同步！");
+                        console.log("🎯 戰情室最新數據庫已零快取同步！");
                     } catch (error) {
-                        console.error("❌ 讀取 JSON 數據失敗，請確認檔案路徑：", error);
+                        print("❌ 讀取資料庫失敗:", error);
                     }
                 };
 
-                // 4. 網頁開啟時立刻載入，並設定每 30 秒自動更新
                 onMounted(() => {
                     fetchMarketStatus();
-                    setInterval(fetchMarketStatus, 30000); 
+                    setInterval(fetchMarketStatus, 15000); // 縮短為每 15 秒自動刷新一次
                 });
 
-                return {
-                    marketData,
-                    priceSpread
-                };
+                return { marketData };
             }
         }).mount('#app');
     </script>
