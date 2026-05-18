@@ -47,10 +47,12 @@
             "name": "台指波段王V5",
             "buy_price": 22150.0,
             "buy_time": "2026-05-18 21:37:47",
-            "pnl_percent": 0.0,
+            "pnl_percent": 0.81,
             "tp_price": 22330.0,
             "sl_price": 22030.0,
-            "is_closed": false
+            "is_closed": true,
+            "close_price": 22330.0,
+            "close_time": "2026-05-18 21:37:49"
         }
     ]
 }
