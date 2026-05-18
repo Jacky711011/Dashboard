@@ -43,16 +43,6 @@
     },
     "strategy_positions": [
         {
-            "code": "TXF1!",
-            "name": "信號K",
-            "buy_price": 41168.0,
-            "buy_time": "2026-05-18 21:40:43",
-            "pnl_percent": 0.0,
-            "tp_price": 41348.0,
-            "sl_price": 41048.0,
-            "is_closed": false
-        },
-        {
             "code": "FITX (台指期近月)",
             "name": "台指波段王V5 (做多 📈)",
             "buy_price": 22150.0,
@@ -64,6 +54,17 @@
             "direction": "buy",
             "close_price": 22330.0,
             "close_time": "2026-05-18 21:48:50"
+        },
+        {
+            "code": "TXF1!",
+            "name": "15分鐘SP策略 (做多 📈)",
+            "buy_price": 41156.0,
+            "buy_time": "2026-05-18 22:00:06",
+            "pnl_percent": 0.0,
+            "tp_price": 41336.0,
+            "sl_price": 41036.0,
+            "is_closed": false,
+            "direction": "buy"
         }
     ]
 }
