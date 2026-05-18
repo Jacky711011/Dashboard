@@ -1,19 +1,45 @@
 {
-  "last_update": "2026-05-18 20:27:35",
-  "market_index": { ... },
-  "chips": { ... },
-  // ✅ 將此結構寫進 JSON 檔案中，網頁就會自動渲染出持倉表格
-  "strategy_positions": [
-    {
-      "code": "TXF1! (台指近月)",
-      "name": "策略名稱1 (台指多頭趨勢)",
-      "buy_price": 22150,
-      "buy_time": "2026-05-18 09:15:00",
-      "pnl_percent": 1.25, // 需即時算出或傳入
-      "tp_price": 22450,
-      "sl_price": 21950,
-      "is_closed": false
+    "last_update": "2026-05-18 21:17:38",
+    "market_index": {
+        "taiex": {
+            "price": 40891.82,
+            "change": -280.54,
+            "percent": -0.68
+        },
+        "nasdaq": {
+            "price": 26225.14,
+            "change": -410.08,
+            "percent": -1.54
+        },
+        "tsm_adr": {
+            "price": 404.35,
+            "change": -13.37,
+            "percent": -3.2
+        },
+        "sox": {
+            "price": 11588.46,
+            "change": -485.32,
+            "percent": -4.02
+        },
+        "dji": {
+            "price": 49526.17,
+            "change": -537.29,
+            "percent": -1.07
+        },
+        "tx": {
+            "price": 40891.82,
+            "change": -280.54,
+            "percent": -0.68
+        }
     },
-    { ... }
-  ]
+    "chips": {
+        "foreign_futures_net": -25600,
+        "retail_ratio": 12.5,
+        "institutional_buying": {
+            "foreign": -120.5,
+            "itc": 45.2,
+            "dealer": -12.3
+        }
+    },
+    "strategy_positions": []
 }
