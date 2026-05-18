@@ -6,17 +6,17 @@ from datetime import datetime
 import pytz
 
 def fetch_market_and_chips():
-    print("🚀 姜太戰情室高頻機器人：啟動全球大盤數據更新...")
+    print("🚀 姜太 10 分鐘高頻戰情室大盤機器人啟動...")
     tw_tz = pytz.timezone('Asia/Taipei')
     current_time = datetime.now(tw_tz).strftime('%Y-%m-%d %H:%M:%S')
     
-    # 1. 抓取全球美股與台股大盤最穩健的指標
+    # 1. 抓取全球最硬核、絕不抽風的 5 大焦點大盤與美股指標 (對接新版網頁 6 欄看板)
     tickers = {
-        "taiex": "^TWII",    # 台股加權指數
-        "nasdaq": "^IXIC",   # 那斯達克指數
-        "tsm_adr": "TSM",    # 台積電 ADR
-        "sox": "^SOX",       # 費城半導體
-        "dji": "^DJI"        # 道瓊工業
+        "taiex": "^TWII",    # 1. 台股加權指數
+        "nasdaq": "^IXIC",   # 2. 那斯達克指數
+        "tsm_adr": "TSM",    # 3. 台積電 ADR (夜盤核心)
+        "sox": "^SOX",       # 4. 費城半導體指數
+        "dji": "^DJI"        # 5. 道瓊工業指數
     }
     market_index_result = {}
     
@@ -36,7 +36,7 @@ def fetch_market_and_chips():
             print(f"⚠️ {key} 數據抓取微幅異常: {e}")
             market_index_result[key] = {"price": 0.0, "change": 0.0, "percent": 0.0}
 
-    # 欄位安全結構對接：維持台指期日盤(tx)的格式相容性
+    # 結構相容性對接：讓台指期(tx)在 Python 端安全同步大盤數據，維持前端 6 欄看板不跳錯
     market_index_result["tx"] = market_index_result["taiex"]
 
     # 2. 籌碼資料安全框架 (保留與歷史前端相容)
@@ -46,34 +46,33 @@ def fetch_market_and_chips():
         "institutional_buying": { "foreign": -120.5, "itc": 45.2, "dealer": -12.3 }
     }
 
-    # 3. 🛡️ 超級重點：讀取舊 JSON，實施 TradingView 持倉數據保護防線
+    # 3. 🛡️ 核心國防級防禦：讀取舊 JSON，全面提取並保護 TradingView 實時部位
     json_path = 'market_status.json'
-    saved_positions = [] # 用來安全暫存 TradingView 傳進來的真單
+    saved_positions = [] 
     
     if os.path.exists(json_path):
         with open(json_path, 'r', encoding='utf-8') as f:
             try:
                 existing_data = json.load(f)
-                # 🛡️ 關鍵防線：如果舊檔案裡已經有 TV 寫入的單子，立刻把它們複製出來保護！
+                # 🛡️ 關鍵安全防線：如果是合法的持倉清單，立刻原封不動打包備份
                 if "strategy_positions" in existing_data and isinstance(existing_data["strategy_positions"], list):
                     saved_positions = existing_data["strategy_positions"]
-                    print(f"🛡️ 國防級守護：成功保護現有的 {len(saved_positions)} 筆 TradingView 真實策略單！")
+                    print(f"🛡️ 國防級守護：成功保護現有的 {len(saved_positions)} 筆來自 TradingView 的真實策略單！")
             except Exception as e:
-                print(f"💡 提示：讀取舊 JSON 失敗或格式為空，將重新初始化結構。原因: {e}")
+                print(f"💡 提示：讀取舊 JSON 失敗，將初始化空持倉。原因: {e}")
 
-    # 4. 組裝全新封包
+    # 4. 組裝全新數據封包 (大盤最新現況 + 剛剛備份出來的真實持倉)
     final_output = {
         "last_update": current_time,
         "market_index": market_index_result,
         "chips": chips_result,
-        # 🎯 完美的資料對接：把受保護的真實持倉單（或空陣列）原封不動塞回去，絕不覆蓋洗掉！
-        "strategy_positions": saved_positions 
+        "strategy_positions": saved_positions # 100% 捍衛部位不被洗白！
     }
 
-    # 5. 寫入回檔案
+    # 5. 安全複寫回 market_status.json
     with open(json_path, 'w', encoding='utf-8') as f:
         json.dump(final_output, f, ensure_ascii=False, indent=4)
-    print(f"🎉 戰情室大盤數據同步完成！更新時間：{current_time}")
+    print(f"🎉 大盤爬蟲定時資料更新完成！時間：{current_time}")
 
 if __name__ == '__main__':
     fetch_market_and_chips()
