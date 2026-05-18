@@ -1,45 +1,17 @@
 {
-    "last_update": "2026-05-18 21:17:38",
+    "last_update": "2026-05-18 21:20:00",
     "market_index": {
-        "taiex": {
-            "price": 40891.82,
-            "change": -280.54,
-            "percent": -0.68
-        },
-        "nasdaq": {
-            "price": 26225.14,
-            "change": -410.08,
-            "percent": -1.54
-        },
-        "tsm_adr": {
-            "price": 404.35,
-            "change": -13.37,
-            "percent": -3.2
-        },
-        "sox": {
-            "price": 11588.46,
-            "change": -485.32,
-            "percent": -4.02
-        },
-        "dji": {
-            "price": 49526.17,
-            "change": -537.29,
-            "percent": -1.07
-        },
-        "tx": {
-            "price": 40891.82,
-            "change": -280.54,
-            "percent": -0.68
-        }
+        "taiex": { "price": 0.0, "change": 0.0, "percent": 0.0 },
+        "tx": { "price": 0.0, "change": 0.0, "percent": 0.0 },
+        "nasdaq": { "price": 0.0, "change": 0.0, "percent": 0.0 },
+        "tsm_adr": { "price": 0.0, "change": 0.0, "percent": 0.0 },
+        "sox": { "price": 0.0, "change": 0.0, "percent": 0.0 },
+        "dji": { "price": 0.0, "change": 0.0, "percent": 0.0 }
     },
     "chips": {
-        "foreign_futures_net": -25600,
-        "retail_ratio": 12.5,
-        "institutional_buying": {
-            "foreign": -120.5,
-            "itc": 45.2,
-            "dealer": -12.3
-        }
+        "foreign_futures_net": 0,
+        "retail_ratio": 0.0,
+        "institutional_buying": { "foreign": 0.0, "itc": 0.0, "dealer": 0.0 }
     },
     "strategy_positions": []
 }
