@@ -41,5 +41,16 @@
             "dealer": 0.0
         }
     },
-    "strategy_positions": []
+    "strategy_positions": [
+        {
+            "code": "FITX (台指期近月)",
+            "name": "台指波段王V5",
+            "buy_price": 22150.0,
+            "buy_time": "2026-05-18 21:37:47",
+            "pnl_percent": 0.0,
+            "tp_price": 22330.0,
+            "sl_price": 22030.0,
+            "is_closed": false
+        }
+    ]
 }
