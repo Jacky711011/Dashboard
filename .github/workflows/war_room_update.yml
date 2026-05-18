@@ -2,10 +2,11 @@ name: Market Status Auto Update
 
 on:
   schedule:
-    # 這裡設定的時間是國際標準時 (UTC)
-    # 星期一到星期五的 00:00 (台灣時間早上 08:00，開盤前初始化)
-    - cron: '0 0 * * 1-5'
-    # 星期一到星期五的 06:30 (台灣時間下午 14:30，盤後清算最新價)
+    # 🎯 核心夜盤排程：每 5 分鐘執行一次 (對應台灣時間 15:00 - 23:55)
+    - cron: '*/5 7-15 * * 1-5'
+    # 🎯 核心半夜盤排程：每 5 分鐘執行一次 (對應台灣時間 00:00 - 05:00)
+    - cron: '*/5 16-21 * * 1-5'
+    # 盤後結算排程 (台灣時間下午 14:30 抓當日法人籌碼)
     - cron: '30 6 * * 1-5'
   workflow_dispatch: # 保留手動觸發按鈕
 
@@ -28,9 +29,9 @@ jobs:
     - name: 安裝所需套件
       run: |
         python -m pip install --upgrade pip
-        pip install yfinance pytz
+        pip install yfinance requests pytz
 
-    - name: 執行大盤數據爬蟲
+    - name: 執行大盤與TwelveData夜盤爬蟲
       run: python update_market.py
 
     - name: 檢查檔案狀態並提交回 GitHub
@@ -38,4 +39,4 @@ jobs:
         git config --global user.name "WarRoom-Bot"
         git config --global user.email "bot@github.com"
         git add market_status.json
-        git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 自動更新台美大盤最新戰況" && git push)
+        git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 5分鐘夜盤高頻同步更新" && git push)
