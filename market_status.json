@@ -41,5 +41,17 @@
             "dealer": -12.3
         }
     },
-    "strategy_positions": []
+    "strategy_positions": [
+        {
+            "code": "TXF1!",
+            "name": "信號K_策略A (做多 📈)",
+            "buy_price": 40325.0,
+            "buy_time": "2026-05-19 21:54:35",
+            "pnl_percent": 0.0,
+            "tp_price": 40505.0,
+            "sl_price": 40205.0,
+            "is_closed": false,
+            "direction": "buy"
+        }
+    ]
 }
