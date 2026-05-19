@@ -1,1 +1,45 @@
-"strategy_positions": []
+{
+    "last_update": "2026-05-19 21:48:15",
+    "market_index": {
+        "taiex": {
+            "price": 40175.56,
+            "change": -716.26,
+            "percent": -1.75
+        },
+        "nasdaq": {
+            "price": 25933.18,
+            "change": -157.55,
+            "percent": -0.6
+        },
+        "tsm_adr": {
+            "price": 392.27,
+            "change": -3.68,
+            "percent": -0.93
+        },
+        "sox": {
+            "price": 11200.13,
+            "change": -102.39,
+            "percent": -0.91
+        },
+        "dji": {
+            "price": 49370.56,
+            "change": -315.56,
+            "percent": -0.64
+        },
+        "tx": {
+            "price": 40175.56,
+            "change": -716.26,
+            "percent": -1.75
+        }
+    },
+    "chips": {
+        "foreign_futures_net": -25600,
+        "retail_ratio": 12.5,
+        "institutional_buying": {
+            "foreign": -120.5,
+            "itc": 45.2,
+            "dealer": -12.3
+        }
+    },
+    "strategy_positions": []
+}
