@@ -44,12 +44,12 @@
     "strategy_positions": [
         {
             "code": "TXF1!",
-            "name": "精準裸K動態防禦系統 (做多 📈)",
-            "buy_price": 40465.0,
-            "buy_time": "2026-05-20 09:50:47",
+            "name": "45分鐘SP策略 (做多 📈)",
+            "buy_price": 40422.0,
+            "buy_time": "2026-05-20 10:15:02",
             "pnl_percent": 0.0,
-            "tp_price": 40645.0,
-            "sl_price": 40345.0,
+            "tp_price": 40602.0,
+            "sl_price": 40302.0,
             "is_closed": false,
             "direction": "buy"
         }
