@@ -44,12 +44,12 @@
     "strategy_positions": [
         {
             "code": "TXF1!",
-            "name": "15分鐘SP策略 (做空 📉)",
-            "buy_price": 40523.0,
-            "buy_time": "2026-05-20 16:39:04",
+            "name": "45分鐘SP策略 (做空 📉)",
+            "buy_price": 40587.0,
+            "buy_time": "2026-05-20 17:50:13",
             "pnl_percent": 0.0,
-            "tp_price": 40343.0,
-            "sl_price": 40643.0,
+            "tp_price": 40407.0,
+            "sl_price": 40707.0,
             "is_closed": false,
             "direction": "sell"
         }
