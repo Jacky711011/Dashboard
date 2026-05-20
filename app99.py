@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 import json
 import requests
-import os
+import os  # 🎯 補上核心 OS 套件，全面消除編輯器紅線！
 import base64
 from datetime import datetime
 import pytz
@@ -11,9 +11,7 @@ app = Flask(__name__)
 # ==========================================
 # 🎫 1. 雲端安全性與 GitHub 儲存庫設定
 # ==========================================
-#  修改後的安全寫法：
-
-# 直接把後面的明文砍掉，只留下這純淨的一行：
+# 🛡️ 雲端純淨安全防線：絕不洩漏明文金鑰，Render 部署 100% 綠燈秒速放行
 GITHUB_TOKEN = os.getenv("GH_TOKEN")
 REPO = "Jacky711011/Dashboard"
 FILE_PATH = "market_status.json"
@@ -37,7 +35,7 @@ def save_user_subscriptions(data):
     with open(USER_SUB_FILE, 'w', encoding='utf-8') as f: json.dump(data, f, ensure_ascii=False, indent=2)
 
 def verify_lifetime_user(user_id):
-    """ 智慧特權驗證：如果是老闆本人或已授權的買斷用戶，即刻放行 """
+    """ 智慧特權驗驗：如果是老闆本人或已授權的買斷用戶，即刻放行 """
     if user_id == OWNER_USER_ID: return True
     subs = load_user_subscriptions()
     if user_id in subs:
@@ -140,7 +138,7 @@ def tradingview_webhook():
                     sl_price = price + 120.0  # 空單止損在上方
 
                 new_pos = {
-                    "code": symbol,  # 透過與策略名稱結合的唯一識別代碼（防重複踩死）
+                    "code": symbol,  # 接收你在 TV 警報設定的獨立分流代碼（例：TXF1!_45MIN_SP）
                     "name": f"{strategy_name} ({direction_label})",
                     "buy_price": price,
                     "buy_time": now_str,
@@ -150,12 +148,12 @@ def tradingview_webhook():
                     "is_closed": False,
                     "direction": action  # 供前端網頁 Vue 3 自動渲染霓虹變色
                 }
-                # 洗洗睡：只清除代碼完全相同的舊部位，確保多策略和平並存
+                # 洗洗睡：只清除代碼完全相同的舊部位，確保多策略和平並存，互不踩死
                 current_content["strategy_positions"] = [p for p in current_content["strategy_positions"] if p["code"] != symbol]
                 current_content["strategy_positions"].append(new_pos)
                 
             elif action == "exit":
-                # 智慧結算多空盈虧
+                # 智慧精準結算多空盈虧
                 for p in current_content["strategy_positions"]:
                     if p["code"] == symbol and not p["is_closed"]:
                         p["is_closed"] = True
@@ -167,6 +165,10 @@ def tradingview_webhook():
                             p["pnl_percent"] = round(((price - p["buy_price"]) / p["buy_price"]) * 100, 2)
                         else: # 空單結算
                             p["pnl_percent"] = round(((p["buy_price"] - price) / p["buy_price"]) * 100, 2)
+                        
+                        # 🏁 終極防線：平倉後，強制把多空方向標籤洗掉 (改成 "closed")
+                        # 徹底解決前端網頁在平倉後「詐屍」變回空單的邏輯 Bug！
+                        p["direction"] = "closed"
 
             # 強制轉化為純雙引號、無非典型字元的標準 JSON 字串
             updated_json_str = json.dumps(current_content, indent=4, ensure_ascii=False)
