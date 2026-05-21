@@ -101,7 +101,7 @@ def tradingview_webhook():
             msg = f"策略:{strategy_name}\n📈【進場 - 多單】\n商品：{symbol}\n價格：{price}\n目標止盈：{price+180}\n防守止損：{price-120}"
             send_line_message(msg)
         elif action == "sell":
-            msg = f"策略:{strategy_name}\n📉【進場 - 空單】\n商品：{symbol}\n價格：{price}\n目標止盈：{price-180}\n防守止損：{price+120}"
+            msg = f"策略:{strategy_name}\n📉【進場 - 空單】\n商品：{symbol}\n價格：{price}"
             send_line_message(msg)
         elif action == "exit":
             msg = f"策略:{strategy_name}\n🔚【全數平倉】\n商品：{symbol}\n平倉價：{price}"
