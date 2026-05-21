@@ -44,12 +44,12 @@
     "strategy_positions": [
         {
             "code": "TXF1!",
-            "name": "信號K_策略A (做多 📈)",
-            "buy_price": 41092.0,
-            "buy_time": "2026-05-21 08:50:37",
+            "name": "精準裸K動態防禦系統 (做多 📈)",
+            "buy_price": 41135.0,
+            "buy_time": "2026-05-21 08:55:03",
             "pnl_percent": 0.0,
-            "tp_price": 41272.0,
-            "sl_price": 40972.0,
+            "tp_price": 41315.0,
+            "sl_price": 41015.0,
             "is_closed": false,
             "direction": "buy"
         }
