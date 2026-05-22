@@ -56,11 +56,11 @@
         {
             "code": "TMF01",
             "name": "極速測試 (做多 📈)",
-            "buy_price": 42676.0,
-            "buy_time": "2026-05-22 23:56:09",
+            "buy_price": 42678.0,
+            "buy_time": "2026-05-22 23:57:04",
             "pnl_percent": 0.0,
-            "tp_price": 42856.0,
-            "sl_price": 42556.0,
+            "tp_price": 42858.0,
+            "sl_price": 42558.0,
             "is_closed": false,
             "direction": "buy"
         }
