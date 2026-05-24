@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-部署於 Render 的雲端後端核心管線 (含 GitHub 授權資料庫讀寫演算法)
+部署於 Render 的雲端後端核心管線 (金鑰安全防範完全體)
 """
 import os
 import json
@@ -12,12 +12,13 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 
 # ==============================================================================
-# 🔐 雲端環境變數安全設定 (由 Render 後台安全注入，不可死寫在代碼中)
+# 🔐 雲端環境變數安全設定 (由 Render 後台安全注入，代碼內保持乾淨以防洩密)
 # ==============================================================================
-GITHUB_TOKEN = os.environ.get("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")       # 你的 GitHub PAT
-REPO_OWNER = os.environ.get("Jacky711011")         # GitHub 帳號
-REPO_NAME = os.environ.get("Dashboard")           # 儲存庫名稱
-LINE_CHANNEL_ACCESS_TOKEN = os.environ.get("FMmKijyWSUloSPnRYV7GwnQrZDV9oNojPkP5mEGhlklcanN3j1aqI/FXPlFULIN+UMLhDRlnw1NV96X6X2P6j8sV48rbz362otHnnZTxYbtJzzO1j2BElT+O/CzOFdQ8nI2DnJrx9NxpLgAFqfsXMwdB04t89/1O/w1cDnyilFU=") # LINE Bot Token
+# 🟢 完美修正：os.environ.get() 括號內只能放變數名稱，真實的密碼要貼在 Render 後台！
+GITHUB_TOKEN = os.environ.get("MY_GITHUB_TOKEN")        # 對應 Render 後台的 GitHub 金鑰
+REPO_OWNER = os.environ.get("MY_GITHUB_OWNER")          # 對應 Render 後台的 GitHub 帳號
+REPO_NAME = os.environ.get("MY_GITHUB_REPO")            # 對應 Render 後台的儲存庫名稱
+LINE_CHANNEL_ACCESS_TOKEN = os.environ.get("LINE_ACCESS_TOKEN") # 對應 Render 後台的 LINE Bot 金鑰
 
 FILE_PATH = "users.json"
 
@@ -35,7 +36,7 @@ def get_github_users():
         res = requests.get(url, headers=headers, timeout=5)
         if res.status_code == 200:
             file_info = res.json()
-            sha = file_info["sha"] # 抓取這份檔案在 GitHub 內部的唯一辨識碼 (修改檔案必備)
+            sha = file_info["sha"] # 抓取這份檔案在 GitHub 內部的唯一辨識碼
             content = base64.b64decode(file_info["content"]).decode('utf-8')
             return json.loads(content), sha
     except Exception as e:
@@ -148,5 +149,4 @@ def tradingview_webhook():
     return jsonify({"status": "success"}), 200
 
 if __name__ == "__main__":
-    # 供本地測試用，Render 上會自動使用 gunicorn 啟動
     app.run(host='0.0.0.0', port=6000)
