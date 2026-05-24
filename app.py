@@ -15,9 +15,9 @@ app = Flask(__name__)
 # 🔐 雲端環境變數安全設定 (由 Render 後台安全注入，不可死寫在代碼中)
 # ==============================================================================
 GITHUB_TOKEN = os.environ.get("MY_GITHUB_TOKEN")       # 你的 GitHub PAT
-REPO_OWNER = os.environ.get("MY_GITHUB_OWNER")         # GitHub 帳號
-REPO_NAME = os.environ.get("MY_GITHUB_REPO")           # 儲存庫名稱
-LINE_CHANNEL_ACCESS_TOKEN = os.environ.get("LINE_ACCESS_TOKEN") # LINE Bot Token
+REPO_OWNER = os.environ.get("Jacky711011")         # GitHub 帳號
+REPO_NAME = os.environ.get("Dashboard")           # 儲存庫名稱
+LINE_CHANNEL_ACCESS_TOKEN = os.environ.get("FMmKijyWSUloSPnRYV7GwnQrZDV9oNojPkP5mEGhlklcanN3j1aqI/FXPlFULIN+UMLhDRlnw1NV96X6X2P6j8sV48rbz362otHnnZTxYbtJzzO1j2BElT+O/CzOFdQ8nI2DnJrx9NxpLgAFqfsXMwdB04t89/1O/w1cDnyilFU=") # LINE Bot Token
 
 FILE_PATH = "users.json"
 
