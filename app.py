@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-部署於 Render 的雲端後端核心管線 (預約審核制完全體)
+部署於 Render 的雲端後端核心管線 (加入程式 + 訂閱預約雙軌制完全體)
 """
 import os
 import json
@@ -12,7 +12,7 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 
 # ==============================================================================
-# 🔐 雲端環境變變數安全設定
+# 🔐 雲端環境變數安全設定
 # ==============================================================================
 GITHUB_TOKEN = os.environ.get("MY_GITHUB_TOKEN")
 REPO_OWNER = os.environ.get("MY_GITHUB_OWNER")
@@ -54,7 +54,7 @@ def push_msg_to_line_user(to_user_id, text_message):
     except Exception as e: print(f"LINE 發送異常: {e}")
 
 # ==============================================================================
-# 📱 窗口 1：LINE Webhook 監聽
+# 📱 窗口 1：LINE Webhook 監聽核心邏輯 (加入程式、訂閱、查詢ID完美並存)
 # ==============================================================================
 @app.route("/callback", methods=['POST'])
 def line_webhook():
@@ -67,7 +67,7 @@ def line_webhook():
             if not user_id:
                 continue
             
-            # 🎯 功能一：查詢ID與狀態
+            # 🎯 功能一：用戶主動輸入「查詢ID與到期時間」
             if user_msg == "查詢ID":
                 users, sha = get_github_users()
                 if user_id in users:
@@ -84,12 +84,33 @@ def line_webhook():
                         
                     id_reply = f"🔑【您的 LINE 帳號狀態】\n\n👤 識別碼：\n{user_id}\n\n📊 訂閱狀態：\n{status_note}"
                 else:
-                    id_reply = f"🔑【您的 LINE 專屬識別碼】\n\n{user_id}\n\n❌ 授權狀態：尚未開通\n💡 提示：輸入「訂閱」即可立刻送出申請預約試用期或續約唷！"
+                    id_reply = f"🔑【您的 LINE 專屬識別碼】\n\n{user_id}\n\n❌ 授權狀態：尚未開通\n💡 提示：輸入「加入程式」可開通免費試用，或輸入「訂閱」送出續約預約申請！"
                 
                 push_msg_to_line_user(user_id, id_reply)
                 continue
                 
-            # 🎯 功能二：用戶主動輸入「訂閱」填單申請
+            # 🎯 功能二：用戶打「加入程式」➔ 自動開通 7 天免費試用期 (幫你加回來了！)
+            if user_msg == "加入程式":
+                users, sha = get_github_users()
+                if user_id in users:
+                    current_expire = users[user_id]['expire_date']
+                    push_msg_to_line_user(user_id, f"ℹ️【系統提示】\n您先前已加入過名冊。目前授權到期日為：{current_expire}")
+                else:
+                    # 全自動計算 7 天試用期，預設開通狀態為「已訂閱」放行訊號
+                    expire_date = (datetime.now() + timedelta(days=7)).strftime("%Y-%m-%d")
+                    users[user_id] = {
+                        "username": "LINE試用戶",
+                        "expire_date": expire_date,
+                        "sub_status": "已訂閱",
+                        "has_notified_expired": False
+                    }
+                    save_github_users(users, sha)
+                    
+                    welcome_msg = f"🎉 恭喜激活成功！\n系統已自動將您的 LINE ID 綁定至雲端授權資料庫。\n\n📊 您已獲得 7 天免費試用權限，訊號將持續接收至：{expire_date}。"
+                    push_msg_to_line_user(user_id, welcome_msg)
+                continue
+
+            # 🎯 功能三：用戶主動輸入「訂閱」➔ 填單等待管理員聯繫核帳
             if user_msg == "訂閱":
                 users, sha = get_github_users()
                 today_str = datetime.now().strftime("%Y-%m-%d")
@@ -99,12 +120,12 @@ def line_webhook():
                     if current_status == "待處理":
                         push_msg_to_line_user(user_id, "ℹ️【系統提示】\n您先前已送出過訂閱申請，目前正在「待處理」審核階段，請耐心等候管理員與您聯繫唷！")
                     else:
-                        # 已經是老客戶，打訂閱代表想要續約，幫他把狀態洗回「待處理」讓管理員知道
+                        # 已開通用戶打訂閱代表想續約，洗回「待處理」
                         users[user_id]["sub_status"] = "待處理"
                         save_github_users(users, sha)
                         push_msg_to_line_user(user_id, f"🔄【續約申請成功】\n已幫您提報續約申請！\n管理員將會儘速與您確認後續收費事宜。\n\n👤 您的識別碼：\n{user_id}")
                 else:
-                    # 全新客戶，直接建立名冊，狀態給予「待處理」，時間先填今天
+                    # 全新客戶未試用直接買，狀態給予「待處理」不放行訊號，等管理員手動加天數
                     users[user_id] = {
                         "username": "新申請用戶",
                         "expire_date": today_str,
@@ -137,12 +158,11 @@ def tradingview_webhook():
         expire_date = info["expire_date"]
         sub_status = info.get("sub_status", "已訂閱")
         
-        # 🔒 硬核防線：只有 sub_status 是 "已訂閱"，且今天還沒到期的，才放行發送訊號！
+        # 🔒 只有狀態是 "已訂閱"，且今天還沒到期的，才放行發送訊號！
         if sub_status == "已訂閱" and today_str <= expire_date:
             signal_msg = f"📡【TV策略實盤訊號轉發】\n策略名稱: {strategy}\n買賣動作: {action}\n執行商品: {symbol}\n訊號價格: {price}\n發射時間: {datetime.now().strftime('%H:%M:%S')}"
             push_msg_to_line_user(uid, signal_msg)
         else:
-            # 如果他是已訂閱，但今天「剛好過期」，才發過期通告
             if sub_status == "已訂閱" and today_str > expire_date and not info.get("has_notified_expired", False):
                 expired_notice = f"🚨【授權到期公告】\n您的授權已於 {expire_date} 正式到期！系統已自動終止訊號轉發，如需續約請在聊天室打「訂閱」聯繫管理員。"
                 push_msg_to_line_user(uid, expired_notice)
