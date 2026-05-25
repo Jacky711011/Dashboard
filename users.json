@@ -33,5 +33,11 @@
     "expire_date": "2026-06-01",
     "sub_status": "已訂閱",
     "has_notified_expired": false
+  },
+  "U62ab96aabfd0e2a011762a9d719fd5da": {
+    "username": "LINE試用戶",
+    "expire_date": "2026-06-01",
+    "sub_status": "已訂閱",
+    "has_notified_expired": false
   }
 }
