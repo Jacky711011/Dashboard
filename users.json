@@ -2,7 +2,7 @@
   "U123456789abcdef0123456789abcdef": {
     "username": "範例",
     "expire_date": "2026-05-31",
-    "has_notified_expired": false
+    "has_notified_expired": true
   },
   "U58d27a73dfc776512e42e948769bb082": {
     "username": "王大頭",
