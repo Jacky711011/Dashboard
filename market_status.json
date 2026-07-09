@@ -1,10 +1,10 @@
 {
-    "last_update": "2026-07-09 06:48:01",
+    "last_update": "2026-07-09 18:05:17",
     "market_index": {
         "taiex": {
-            "price": 45479.11,
-            "change": 0.0,
-            "percent": 0.0
+            "price": 45354.61,
+            "change": -379.8,
+            "percent": -0.83
         },
         "nasdaq": {
             "price": 25870.65,
@@ -27,9 +27,9 @@
             "percent": -1.09
         },
         "tx": {
-            "price": 45479.11,
-            "change": 0.0,
-            "percent": 0.0
+            "price": 45354.61,
+            "change": -379.8,
+            "percent": -0.83
         }
     },
     "chips": {
