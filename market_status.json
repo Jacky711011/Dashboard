@@ -1,8 +1,8 @@
 {
-    "last_update": "2026-07-10 06:58:45",
+    "last_update": "2026-07-10 18:01:47",
     "market_index": {
         "taiex": {
-            "price": 45734.41,
+            "price": 45354.61,
             "change": 0.0,
             "percent": 0.0
         },
@@ -27,7 +27,7 @@
             "percent": 0.27
         },
         "tx": {
-            "price": 45734.41,
+            "price": 45354.61,
             "change": 0.0,
             "percent": 0.0
         }
