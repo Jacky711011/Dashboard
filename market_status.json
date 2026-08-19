@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-08-19 22:50:00",
+    "last_update": "2026-08-19 23:18:38",
     "market_index": {
         "taiex": {
             "price": 44719.35,
@@ -7,23 +7,23 @@
             "percent": -1.3
         },
         "nasdaq": {
-            "price": 26333.24,
-            "change": 43.53,
-            "percent": 0.17
+            "price": 26399.83,
+            "change": 110.12,
+            "percent": 0.42
         },
         "tsm_adr": {
-            "price": 411.96,
-            "change": -1.45,
-            "percent": -0.35
+            "price": 412.29,
+            "change": -1.12,
+            "percent": -0.27
         },
         "sox": {
-            "price": 11748.1,
-            "change": -244.36,
-            "percent": -2.04
+            "price": 11791.46,
+            "change": -201.0,
+            "percent": -1.68
         },
         "dji": {
-            "price": 53609.2,
-            "change": 265.8,
+            "price": 53611.19,
+            "change": 267.79,
             "percent": 0.5
         },
         "tx": {
