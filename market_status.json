@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-11-07 05:24:21",
+    "last_update": "2026-11-07 09:05:24",
     "market_index": {
         "taiex": {
             "price": 41574.72,
@@ -12,9 +12,9 @@
             "percent": 1.09
         },
         "tsm_adr": {
-            "price": 375.44,
-            "change": 22.34,
-            "percent": 6.33
+            "price": NaN,
+            "change": NaN,
+            "percent": NaN
         },
         "sox": {
             "price": 9390.25,
