@@ -1,35 +1,35 @@
 {
-    "last_update": "2026-11-18 23:55:24",
+    "last_update": "2026-11-19 00:16:02",
     "market_index": {
         "taiex": {
-            "price": 40194.91,
-            "change": 102.8,
-            "percent": 0.26
+            "price": 40092.11,
+            "change": 0.0,
+            "percent": 0.0
         },
         "nasdaq": {
-            "price": 24354.55,
-            "change": 26.17,
-            "percent": 0.11
+            "price": 24340.2,
+            "change": 11.81,
+            "percent": 0.05
         },
         "tsm_adr": {
-            "price": 361.92,
-            "change": 2.23,
-            "percent": 0.62
+            "price": 359.73,
+            "change": 0.04,
+            "percent": 0.01
         },
         "sox": {
-            "price": 9624.16,
-            "change": -18.72,
-            "percent": -0.19
+            "price": 9593.07,
+            "change": -49.81,
+            "percent": -0.52
         },
         "dji": {
-            "price": 50165.54,
-            "change": -593.88,
-            "percent": -1.17
+            "price": 50152.26,
+            "change": -607.16,
+            "percent": -1.2
         },
         "tx": {
-            "price": 40194.91,
-            "change": 102.8,
-            "percent": 0.26
+            "price": 40092.11,
+            "change": 0.0,
+            "percent": 0.0
         }
     },
     "chips": {
